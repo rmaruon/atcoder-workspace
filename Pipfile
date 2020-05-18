@@ -7,8 +7,8 @@ verify_ssl = true
 autopep8 = "*"
 flake8 = "*"
 yapf = "*"
-online-judge-tools = "*"
 invoke = "*"
+atcoder-tools = "*"
 
 [packages]
 

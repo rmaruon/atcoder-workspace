@@ -1,6 +1,18 @@
+import os
 import invoke
+
+ROOT = os.path.dirname(__file__)
 
 
 @invoke.task
-def t(c):
-    invoke.run('oj t -c "python main.py"')
+def new(c, contest_id):
+    toml_path = os.path.join(ROOT, 'config', 'atcodertools.toml')
+    workspace_path = os.path.join(ROOT, 'contests')
+    template_path = os.path.join(ROOT, 'config', 'template.py')
+
+    command = ("atcoder-tools gen "
+               f"--config {toml_path} "
+               f"--workspace {workspace_path}  "
+               f"--template {template_path} "
+               f"{contest_id}")
+    invoke.run(command)

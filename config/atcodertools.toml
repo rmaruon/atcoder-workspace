@@ -1,0 +1,8 @@
+[codestyle]
+indent_type='space'
+indent_width=4
+lang='python'
+
+[etc]
+in_example_format="test/in_{}.txt"
+out_example_format="test/out_{}.txt"
