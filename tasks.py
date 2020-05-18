@@ -15,4 +15,10 @@ def new(c, contest_id):
                f"--workspace {workspace_path}  "
                f"--template {template_path} "
                f"{contest_id}")
-    invoke.run(command)
+    invoke.run(command, pty=True)
+
+
+@invoke.task
+def test(c):
+    command = ("atcoder-tools test")
+    invoke.run(command, pty=True)
