@@ -1,4 +1,5 @@
 import os
+import webbrowser
 import invoke
 
 ROOT = os.path.dirname(__file__)
@@ -19,6 +20,15 @@ def new(c, contest_id):
                f"--template {template_path} "
                f"{contest_id}")
     invoke.run(command, pty=True)
+
+
+@invoke.task
+def open(c, contest_id):
+    """
+    Webブラウザーで問題を開く
+    """
+    url = f'https://atcoder.jp/contests/{contest_id}'
+    webbrowser.open(url)
 
 
 @invoke.task
