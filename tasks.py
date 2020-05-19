@@ -101,7 +101,7 @@ def download_all(contest):
                f"{contest.id}")
     invoke.run(command, hide=True)
 
-    print(f'[saved] {contest.id}')
+    print(f'{contest.id} {contest.url}')
 
 
 def download(task):
@@ -120,7 +120,7 @@ def download(task):
         src_path = os.path.join(temp_dir, contest.id, task.id)
         dest_path = os.path.join(CONTESTS_DIR, contest.id, task.id)
         shutil.copytree(src_path, dest_path)
-        print(f'[saved] {contest.id}: {task.id}')
+        print(f'{contest.id}: {task.id} {task.title} {task.url}')
 
 
 @invoke.task
