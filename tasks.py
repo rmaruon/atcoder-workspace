@@ -192,3 +192,22 @@ def submit(c, update=False, force=False):
         command += ' -f'
 
     c.run(command, pty=True)
+
+
+@invoke.task
+def commit(c):
+    """
+    カレントディレクトリの変更分をコミットする
+    """
+    curdir = os.path.abspath(os.path.curdir)
+
+    two_up = curdir.split('/')[-3]
+    if two_up != 'contests':
+        return
+
+    contest_id = curdir.split('/')[-2]
+    task_id = curdir.split('/')[-1]
+    message = f'solve: {contest_id} {task_id}'
+
+    c.run('git add .', pty=True)
+    c.run(f'git commit -m "{message}"', pty=True)
