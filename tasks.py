@@ -174,12 +174,14 @@ def open(c, contest_id, task_id=''):
     webbrowser.open(task.url)
 
 
-@invoke.task
-def test(c):
+@invoke.task(help={'num': 'テストケースを指定する'})
+def test(c, num=None):
     """
     ローカルテストを実行する
     """
     command = "atcoder-tools test"
+    if num is not None:
+        command += f' -n {num}'
     c.run(command, pty=True)
 
 
