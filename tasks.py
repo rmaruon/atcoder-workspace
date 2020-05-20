@@ -120,7 +120,10 @@ def download(task):
         src_path = os.path.join(temp_dir, contest.id, task.id)
         dest_path = os.path.join(CONTESTS_DIR, contest.id, task.id)
         shutil.copytree(src_path, dest_path)
-        print(f'{contest.id}: {task.id} {task.title} {task.url}')
+
+    print(f'{contest.id}: {task.id} {task.title} {task.url}')
+    print(f'Saved to {dest_path}')
+    print(f'Edit: {os.path.join(dest_path, "main.py")}')
 
 
 @invoke.task
