@@ -180,12 +180,15 @@ def test(c):
     c.run(command, pty=True)
 
 
-@invoke.task(help={'update': '再提出する'})
-def submit(c, update=False):
+@invoke.task(help={'update': '再提出する', 'force': 'テスト結果に関係なく提出する'})
+def submit(c, update=False, force=False):
     """
     ソースコードを提出する
     """
     command = "atcoder-tools submit"
     if update:
         command += " -u"
+    if force:
+        command += ' -f'
+
     c.run(command, pty=True)
