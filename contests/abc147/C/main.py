@@ -1,53 +1,62 @@
 #!/usr/bin/env python3
-
-# input
-N = int(input())
-testimonies = []
-
-for _ in range(N):
-    A = int(input())
-    testimonies_i = []
-
-    for _ in range(A):
-        x, y = map(int, input().split())
-        testimonies_i.append((x - 1, y))  # 0-originにする
-
-    testimonies.append(testimonies_i)
+from itertools import product
 
 
-# solve
+def read_data():
+    N = int(input())
+    testimonies = []
+
+    for _ in range(N):
+        A = int(input())
+        testimonies_i = []
+
+        for _ in range(A):
+            x, y = map(int, input().split())
+            testimonies_i.append((x - 1, y))  # 0-based
+
+        testimonies.append(testimonies_i)
+
+    return N, testimonies
+
+
 def is_honest(pattern, i):
-    # i番目の人が正直者であるか (0-origin)
-    return (pattern >> i) & 1
+    # i番目の人が正直者であるか (0-based)
+    return pattern[i]
 
 
 def contradiction_exists(pattern, testimonies_i):
     # ある人の複数の証言に矛盾があるか
-    for testimony in testimonies_i:
-        if is_honest(pattern, testimony[0]) != testimony[1]:
+    for x, y in testimonies_i:
+        if is_honest(pattern, x) != y:
             return True
-            break
 
     return False
 
 
+def is_valid_pattern(pattern, testimonies):
+    for i, p in enumerate(pattern):
+        if not is_honest(pattern, i):
+            continue
+
+        if contradiction_exists(pattern, testimonies[i]):
+            return False
+
+    return True
+
+
 def solve():
+    N, testimonies = read_data()
     max_honest = 0
 
-    # すべての人が 正直者 or not であるパターンをbit全探索する
-    for pattern in range(2**N):
-        for i in range(N):
-            # 正直者の証言に矛盾がないかを検証する
-            if is_honest(pattern, i) and contradiction_exists(
-                    pattern, testimonies[i]):
-                break
-
-        else:
-            count_honest = bin(pattern).count('1')
+    for pattern in product([0, 1], repeat=N):
+        # N=3 => [(0,0,0), (0,0,1), ..., (1,1,1)]
+        if is_valid_pattern(pattern, testimonies):
+            count_honest = sum(pattern)
             if count_honest > max_honest:
                 max_honest = count_honest
 
     print(max_honest)
 
 
-solve()
+if __name__ == "__main__":
+    solve()
