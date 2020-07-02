@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
-import sys
-read = sys.stdin.buffer.read
-readline = sys.stdin.buffer.readline
-readlines = sys.stdin.buffer.readlines
 
-N = map(int, read().split())
+X, Y = map(int, input().split())
+
+count = 0
+num = X
+
+while True:
+    if not X <= num <= Y:
+        break
+
+    num *= 2
+    count += 1
+
+print(count)
