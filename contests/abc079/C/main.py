@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
-import sys
-read = sys.stdin.buffer.read
-readline = sys.stdin.buffer.readline
-readlines = sys.stdin.buffer.readlines
+from itertools import product
 
-N = map(int, read().split())
+s = input()
+op_patterns = product(['+', '-'], repeat=3)
+
+for operators in op_patterns:
+    expression = f"{s[0]}{operators[0]}{s[1]}{operators[1]}{s[2]}{operators[2]}{s[3]}"
+    if eval(expression) == 7:
+        print(f"{expression}=7")
+        break
