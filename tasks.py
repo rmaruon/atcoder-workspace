@@ -98,7 +98,8 @@ def download_all(contest):
                f"--config {TOML_PATH} "
                f"--workspace {CONTESTS_DIR} "
                f"--template {TEMPLATE_PATH} "
-               f"{contest.id}")
+               f"{contest.id} "
+               f"--without-login")
     invoke.run(command, hide=True)
 
     print(f'{contest.id} {contest.url}')
