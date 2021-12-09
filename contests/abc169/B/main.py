@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+
 readline = sys.stdin.buffer.readline
 
 N = int(readline())
@@ -17,7 +18,7 @@ for i, x in enumerate(A):
 
     result = result * x
 
-    if result > 10**18:
+    if result > 10 ** 18:
         print(-1)
         exit()
 

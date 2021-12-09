@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+
 read = sys.stdin.buffer.read
 readline = sys.stdin.buffer.readline
 readlines = sys.stdin.buffer.readlines
@@ -20,4 +21,4 @@ for _ in range(N):
     prev_x, prev_y, prev_t = x, y, t
 
 else:
-    print('Yes')
+    print("Yes")

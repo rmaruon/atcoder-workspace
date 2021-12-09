@@ -17,8 +17,9 @@ for pattern in permutations(patterns):
         town_a = pattern[i]
         town_b = pattern[i + 1]
 
-        distance = math.sqrt((town_a[0] - town_b[0])**2 +
-                             (town_a[1] - town_b[1])**2)
+        distance = math.sqrt(
+            (town_a[0] - town_b[0]) ** 2 + (town_a[1] - town_b[1]) ** 2
+        )
         total += distance
 
     n += 1

@@ -3,7 +3,7 @@ import sys
 
 char = input()
 
-if 'A' <= char <= 'Z':
-    print('A')
+if "A" <= char <= "Z":
+    print("A")
 else:
-    print('a')
+    print("a")

@@ -2,7 +2,7 @@
 
 
 def solve(N, A):
-    MOD = 10**9 + 7
+    MOD = 10 ** 9 + 7
     total = sum(A)
     ans = 0
 

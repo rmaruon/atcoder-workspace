@@ -8,18 +8,18 @@ from itertools import product
 def count_black(array):
     flatten = itertools.chain.from_iterable(array)
     c = Counter(flatten)
-    return c['#']
+    return c["#"]
 
 
 def red_row(array, i):
     length = len(array[0])
-    array[i] = ['r'] * length
+    array[i] = ["r"] * length
     return array
 
 
 def red_col(array, j):
     for row in array:
-        row[j] = 'r'
+        row[j] = "r"
     return array
 
 

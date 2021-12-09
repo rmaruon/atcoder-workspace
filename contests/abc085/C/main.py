@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+
 read = sys.stdin.buffer.read
 readline = sys.stdin.buffer.readline
 readlines = sys.stdin.buffer.readlines
@@ -12,4 +13,4 @@ for i in range(N + 1):
             print(i, j, N - i - j)
             exit()
 
-print('-1 -1 -1')
+print("-1 -1 -1")

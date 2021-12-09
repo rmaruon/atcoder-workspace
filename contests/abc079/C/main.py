@@ -2,7 +2,7 @@
 from itertools import product
 
 s = input()
-op_patterns = product(['+', '-'], repeat=3)
+op_patterns = product(["+", "-"], repeat=3)
 
 for operators in op_patterns:
     expression = f"{s[0]}{operators[0]}{s[1]}{operators[1]}{s[2]}{operators[2]}{s[3]}"

@@ -9,19 +9,19 @@ from bs4 import BeautifulSoup
 import invoke
 
 ROOT_DIR = os.path.dirname(__file__)
-CONFIG_DIR = os.path.join(ROOT_DIR, 'config')
-CONTESTS_DIR = os.path.join(ROOT_DIR, 'contests')
-TOML_PATH = os.path.join(CONFIG_DIR, 'atcodertools.toml')
-TEMPLATE_PATH = os.path.join(CONFIG_DIR, 'template.py')
+CONFIG_DIR = os.path.join(ROOT_DIR, "config")
+CONTESTS_DIR = os.path.join(ROOT_DIR, "contests")
+TOML_PATH = os.path.join(CONFIG_DIR, "atcodertools.toml")
+TEMPLATE_PATH = os.path.join(CONFIG_DIR, "template.py")
 
 
 class Contest:
     def __init__(self, contest_id):
         self._id = contest_id
 
-        url = f'https://atcoder.jp/contests/{contest_id.lower()}/tasks'
+        url = f"https://atcoder.jp/contests/{contest_id.lower()}/tasks"
         if not url_exists(url):
-            self._url = ''
+            self._url = ""
         else:
             self._url = url
 
@@ -36,15 +36,15 @@ class Contest:
     def get_tasks(self):
         # task_urlが contest_id + task_idでは決まらないことがあるため、HTMLをparseする
         html = urllib.request.urlopen(self.url)
-        soup = BeautifulSoup(html, 'html.parser')
-        tr_list = soup.select('#main-div .row table > tbody > tr')
+        soup = BeautifulSoup(html, "html.parser")
+        tr_list = soup.select("#main-div .row table > tbody > tr")
 
         tasks = {}
         for tr in tr_list:
-            td_list = tr.find_all('td')
+            td_list = tr.find_all("td")
 
-            href = td_list[0].a.get('href')
-            task_url = f'https://atcoder.jp{href}'
+            href = td_list[0].a.get("href")
+            task_url = f"https://atcoder.jp{href}"
             task_id = td_list[0].a.string.upper()
             task_title = td_list[1].a.string
 
@@ -86,23 +86,25 @@ def url_exists(url):
         response.close()
         return True
     except urllib.error.HTTPError as e:
-        print(f'{e.reason}: {url}')
+        print(f"{e.reason}: {url}")
         return False
     except urllib.error.URLError:
-        print('URLError')
+        print("URLError")
         return False
 
 
 def download_all(contest):
-    command = ("atcoder-tools gen "
-               f"--config {TOML_PATH} "
-               f"--workspace {CONTESTS_DIR} "
-               f"--template {TEMPLATE_PATH} "
-               f"{contest.id} "
-               f"--without-login")
+    command = (
+        "atcoder-tools gen "
+        f"--config {TOML_PATH} "
+        f"--workspace {CONTESTS_DIR} "
+        f"--template {TEMPLATE_PATH} "
+        f"{contest.id} "
+        f"--without-login"
+    )
     invoke.run(command, hide=True)
 
-    print(f'{contest.id} {contest.url}')
+    print(f"{contest.id} {contest.url}")
 
 
 def download(task):
@@ -111,31 +113,33 @@ def download(task):
     with tempfile.TemporaryDirectory() as temp_dir:
         # atcoder-toolsはtaskごとにダウンロードできない (contestで一括)
         # OPTIMIZE:
-        command = ("atcoder-tools gen "
-                   f"--config {TOML_PATH} "
-                   f"--workspace {temp_dir} "
-                   f"--template {TEMPLATE_PATH} "
-                   f"{contest.id}")
+        command = (
+            "atcoder-tools gen "
+            f"--config {TOML_PATH} "
+            f"--workspace {temp_dir} "
+            f"--template {TEMPLATE_PATH} "
+            f"{contest.id}"
+        )
         invoke.run(command, hide=True)
 
         src_path = os.path.join(temp_dir, contest.id, task.id)
         dest_path = os.path.join(CONTESTS_DIR, contest.id, task.id)
         shutil.copytree(src_path, dest_path)
 
-    print(f'{contest.id}: {task.id} {task.title} {task.url}')
-    print(f'Saved to {dest_path}')
+    print(f"{contest.id}: {task.id} {task.title} {task.url}")
+    print(f"Saved to {dest_path}")
     print(f'Edit: {os.path.join(dest_path, "main.py")}')
 
 
 @invoke.task
-def new(c, contest_id, task_id=''):
+def new(c, contest_id, task_id=""):
     """
     コンテスト環境を用意する
     """
     task_id = task_id.upper()
     dest_path = os.path.join(CONTESTS_DIR, contest_id, task_id)
     if os.path.exists(dest_path):
-        print(f'{contest_id}/{task_id}: directory exists')
+        print(f"{contest_id}/{task_id}: directory exists")
         return
 
     contest = Contest(contest_id)
@@ -149,14 +153,14 @@ def new(c, contest_id, task_id=''):
     tasks = contest.get_tasks()
     task = tasks.get(task_id)
     if not task:
-        print(f'{contest.id} {task_id}: not found')
+        print(f"{contest.id} {task_id}: not found")
         return
 
     download(task)
 
 
 @invoke.task
-def open(c, contest_id, task_id=''):
+def open(c, contest_id, task_id=""):
     """
     Webブラウザーで問題を開く
     """
@@ -175,18 +179,18 @@ def open(c, contest_id, task_id=''):
     webbrowser.open(task.url)
 
 
-@invoke.task(help={'num': 'テストケースを指定する'})
+@invoke.task(help={"num": "テストケースを指定する"})
 def test(c, num=None):
     """
     ローカルテストを実行する
     """
     command = "atcoder-tools test"
     if num is not None:
-        command += f' -n {num}'
+        command += f" -n {num}"
     c.run(command, pty=True)
 
 
-@invoke.task(help={'update': '再提出する', 'force': 'テスト結果に関係なく提出する'})
+@invoke.task(help={"update": "再提出する", "force": "テスト結果に関係なく提出する"})
 def submit(c, update=False, force=False):
     """
     ソースコードを提出する
@@ -195,7 +199,7 @@ def submit(c, update=False, force=False):
     if update:
         command += " -u"
     if force:
-        command += ' -f'
+        command += " -f"
 
     c.run(command, pty=True)
 
@@ -207,13 +211,13 @@ def commit(c):
     """
     curdir = os.path.abspath(os.path.curdir)
 
-    two_up = curdir.split('/')[-3]
-    if two_up != 'contests':
+    two_up = curdir.split("/")[-3]
+    if two_up != "contests":
         return
 
-    contest_id = curdir.split('/')[-2]
-    task_id = curdir.split('/')[-1]
-    message = f'solve: {contest_id} {task_id}'
+    contest_id = curdir.split("/")[-2]
+    task_id = curdir.split("/")[-1]
+    message = f"solve: {contest_id} {task_id}"
 
-    c.run('git add .', pty=True)
+    c.run("git add .", pty=True)
     c.run(f'git commit -m "{message}"', pty=True)

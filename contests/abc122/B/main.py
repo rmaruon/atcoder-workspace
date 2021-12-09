@@ -2,13 +2,13 @@
 
 S = input()
 
-s = ''
-base = ('A', 'C', 'G', 'T')
+s = ""
+base = ("A", "C", "G", "T")
 max_len = 0
 
 for c in S:
     if c not in base:
-        s = ''
+        s = ""
         continue
 
     s += c

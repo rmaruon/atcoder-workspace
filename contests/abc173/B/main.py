@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-d = {'AC': 0, 'WA': 0, 'TLE': 0, 'RE': 0}
+d = {"AC": 0, "WA": 0, "TLE": 0, "RE": 0}
 
 N = int(input())
 for _ in range(N):

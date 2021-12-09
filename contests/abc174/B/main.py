@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 import math
 import sys
+
 readline = sys.stdin.buffer.readline
 
 
 def calc_dist(x, y):
-    return math.sqrt(x**2 + y**2)
+    return math.sqrt(x ** 2 + y ** 2)
 
 
 N, D = map(int, readline().split())

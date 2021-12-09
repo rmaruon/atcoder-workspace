@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import math
+
 N = int(input())
 
 square_root = math.floor(math.sqrt(N))
