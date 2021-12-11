@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-import sys
 
-read = sys.stdin.buffer.read
-readline = sys.stdin.buffer.readline
-readlines = sys.stdin.buffer.readlines
+X, Y = map(int, input().split())
+diff = abs(X - Y)
 
-N = map(int, read().split())
+if diff < 3:
+    print("Yes")
+else:
+    print("No")
