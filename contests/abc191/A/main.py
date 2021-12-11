@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-import sys
 
-read = sys.stdin.buffer.read
-readline = sys.stdin.buffer.readline
-readlines = sys.stdin.buffer.readlines
+V, T, S, D = map(int, input().split())
+time = D / V
 
-N = map(int, read().split())
+if T <= time <= S:
+    print("No")
+else:
+    print("Yes")
