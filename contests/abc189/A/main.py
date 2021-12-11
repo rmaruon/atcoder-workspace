@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-import sys
 
-read = sys.stdin.buffer.read
-readline = sys.stdin.buffer.readline
-readlines = sys.stdin.buffer.readlines
+C1, C2, C3 = list(input())
 
-N = map(int, read().split())
+if C1 == C2 == C3:
+    print("Won")
+else:
+    print("Lost")
