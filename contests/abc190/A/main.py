@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
-import sys
 
-read = sys.stdin.buffer.read
-readline = sys.stdin.buffer.readline
-readlines = sys.stdin.buffer.readlines
+A, B, C = map(int, input().split())
 
-N = map(int, read().split())
+if A > B:
+    print("Takahashi")
+elif A < B:
+    print("Aoki")
+elif A == B:
+    if C == 0:
+        print("Aoki")
+    elif C == 1:
+        print("Takahashi")
