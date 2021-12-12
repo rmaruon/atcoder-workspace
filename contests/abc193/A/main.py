@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-import sys
 
-read = sys.stdin.buffer.read
-readline = sys.stdin.buffer.readline
-readlines = sys.stdin.buffer.readlines
+A, B = [int(x) for x in input().split()]
 
-N = map(int, read().split())
+discount_amount = A - B
+discount_rate = discount_amount / A
+discount_percentage = discount_rate * 100
+
+print(discount_percentage)
