@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-import sys
 
-read = sys.stdin.buffer.read
-readline = sys.stdin.buffer.readline
-readlines = sys.stdin.buffer.readlines
+M, H = [int(x) for x in input().split()]
 
-N = map(int, read().split())
+win = H % M == 0
+
+if win:
+    print("Yes")
+else:
+    print("No")
