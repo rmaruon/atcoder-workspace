@@ -26,6 +26,13 @@ def new(contest_id):
     )
     subprocess.run(command, shell=True)
 
+    message = f"add: {contest.id}"
+    command = (
+        f'cd {contest.dirname(CONTESTS_DIR)} && git add . && git commit -m "{message}"'
+    )
+
+    subprocess.run(command, shell=True)
+
 
 def code(contest_id, task_id):
     """
